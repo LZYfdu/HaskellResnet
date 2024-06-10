@@ -13,6 +13,12 @@ loadModel path specNet = do
   net_init <- sample specNet
   return $ replaceParameters net_init params
 
+  
+resnet50Spec = ResNetSpec [3, 4, 6, 3] 1000
+
+loadResNet50 :: FilePath -> IO ResNet
+loadResNet50 path = loadModel path resnet50Spec
+
 {-
 loadPNet :: FilePath -> IO PNetBB
 loadPNet path = loadModel path pnetBackBoneSpec
@@ -24,7 +30,3 @@ loadONet :: FilePath -> IO ONetBB
 loadONet path = loadModel path onetBackBoneSpec
 -}
 
-resnet50Spec = ResNetSpec [3, 4, 6, 3] 1000
-
-loadResNet50 :: FilePath -> IO ResNet
-loadResNet50 path = loadModel path resnet50Spec

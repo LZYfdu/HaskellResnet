@@ -69,3 +69,5 @@ maxConf resnet img = (maxConf', maxConfIndex)
     output = resnetForward resnet img'
     (maxConf', maxConfIndex) = F.maxDim (F.Dim 1) F.RemoveDim output
 
+normOneChannel :: Tensor -> Int -> Float -> Tensor
+normOneChannel img c mean = F.view [shape img !! 0, 1, shape img !! 2, shape img !! 3] (F.divScalar mean (select 1 c img))

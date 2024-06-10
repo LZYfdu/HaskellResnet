@@ -40,12 +40,12 @@ data BottleneckBBSpec = BottleneckBBSpec
 instance Randomizable BottleneckBBSpec BottleneckBB where
   sample BottleneckBBSpec {..} =
     BottleneckBB
-      <$> sample (Conv2dSpec bneck_in_places bneck_places 1 1)
-      <*> sample (Conv2dSpec bneck_places bneck_places 3 3)
-      <*> sample (Conv2dSpec bneck_places (bneck_places * bneck_expansion) 1 1)
+      <$> sample (Conv2dSpec bneck_in_places  bneck_places 1 1)
+      <*> sample (Conv2dSpec bneck_places     bneck_places 3 3)
+      <*> sample (Conv2dSpec bneck_places    (bneck_places * bneck_expansion) 1 1)
 
 bottleneckBBForward :: BottleneckBB -> Int -> Tensor -> Tensor
-bottleneckBBForward BottleneckBB {..} stride input = F.relu (F.add input out)
+bottleneckBBForward BottleneckBB {..} stride input = F.relu $ F.add input out
   where
     out = conv2dForward bneck_c3 (1, 1) (0, 0)
           . F.relu
@@ -79,13 +79,13 @@ data BottleneckDownsampleBBSpec = BottleneckDownsampleBBSpec
 instance Randomizable BottleneckDownsampleBBSpec BottleneckDownsampleBB where
   sample BottleneckDownsampleBBSpec {..} =
     BottleneckDownsampleBB
-      <$> sample (Conv2dSpec bneck_down_in_places bneck_down_places 1 1)
-      <*> sample (Conv2dSpec bneck_down_places bneck_down_places 3 3)
-      <*> sample (Conv2dSpec bneck_down_places (bneck_down_places * bneck_down_expansion) 1 1)
+      <$> sample (Conv2dSpec bneck_down_in_places  bneck_down_places 1 1)
+      <*> sample (Conv2dSpec bneck_down_places     bneck_down_places 3 3)
+      <*> sample (Conv2dSpec bneck_down_places    (bneck_down_places * bneck_down_expansion) 1 1)
       <*> sample (Conv2dSpec bneck_down_in_places (bneck_down_places * bneck_down_expansion) 1 1)
 
 bottleneckDownsampleBBForward :: BottleneckDownsampleBB -> Int -> Tensor -> Tensor
-bottleneckDownsampleBBForward BottleneckDownsampleBB {..} stride input = F.relu (F.add res out)
+bottleneckDownsampleBBForward BottleneckDownsampleBB {..} stride input = F.relu $ F.add res out
   where
     res = conv2dForward bneck_down_c4 (stride, stride) (0, 0)
           $ input
