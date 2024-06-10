@@ -1,6 +1,7 @@
 module LoadModel where
 
 import MTCNN(PNetBB, RNetBB, ONetBB, pnetBackBoneSpec, rnetBackBoneSpec, onetBackBoneSpec)
+import ResNetFused
 import Torch.Script
 import Torch.Autograd
 import Torch.NN
@@ -12,6 +13,7 @@ loadModel path specNet = do
   net_init <- sample specNet
   return $ replaceParameters net_init params
 
+{-
 loadPNet :: FilePath -> IO PNetBB
 loadPNet path = loadModel path pnetBackBoneSpec
 
@@ -20,3 +22,9 @@ loadRNet path = loadModel path rnetBackBoneSpec
 
 loadONet :: FilePath -> IO ONetBB
 loadONet path = loadModel path onetBackBoneSpec
+-}
+
+resnet50Spec = ResNetSpec [3, 4, 6, 3] 1000
+
+loadResNet50 :: FilePath -> IO ResNet
+loadResNet50 path = loadModel path resnet50Spec

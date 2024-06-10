@@ -268,11 +268,11 @@ onetBBForward :: ONetBB -> Tensor -> (Tensor, Tensor, Tensor)
 onetBBForward ONetBB {..} input = (b, c, a)
   where
     a = softmax (Dim 1) 
-        . linear onet_d6_3
+        . linear onet_d6_1
         $ x
     b = linear onet_d6_2
         $ x
-    c = linear onet_d6_1
+    c = linear onet_d6_3
         $ x
     x = preluForward      onet_pr5
           . linear        onet_d5
