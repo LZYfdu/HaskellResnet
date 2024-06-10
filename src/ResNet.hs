@@ -17,6 +17,8 @@ import Torch.Initializers
 import System.IO.Unsafe (unsafePerformIO)
 import Control.Monad (replicateM)
 
+-- Not used because BatchNorm is not fully supported.
+
 -- Conv2dWithoutBias
 data Conv2dWithoutBias = Conv2dWithoutBias
   {

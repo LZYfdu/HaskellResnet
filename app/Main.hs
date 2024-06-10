@@ -18,7 +18,7 @@ main :: IO ()
 main = do
   args <- getArgs
   if length args < 2
-    then putStrLn "Usage: app <model_path> <image_path>"   
+    then putStrLn "Usage: stack run -- <model_path> <image_path>"   
     else do
       let model_path = return (args !! 0)
           image_path = return (args !! 1)

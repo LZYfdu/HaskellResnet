@@ -17,35 +17,6 @@ import Torch.Initializers
 import System.IO.Unsafe (unsafePerformIO)
 import Control.Monad (replicateM)
 
-{-
--- Conv2dwithStrideAndPadding
-data Conv2dwithSP = Conv2dwithSP 
-  {
-    conv2d_with_sp_c1 :: Conv2d
-  }
-  deriving (Show, Generic, Parameterized)
-
-data Conv2dwithSPSpec = Conv2dwithSPSpec 
-  {
-    conv2dwithSPinputC :: Int,
-    conv2dwithSPoutputC :: Int,
-    conv2dwithSPkernelHeight :: Int,
-    conv2dwithSPkernelWidth :: Int,
-    conv2dwithSPstride :: Int,
-    conv2dwithSPpadding :: Int,
-  }
-  deriving (Show, Eq)
-
-instance Randomizable Conv2dwithSPSpec Conv2dwithSP where
-  sample Conv2dwithSPSpec {..} =
-    Conv2dwithSP
-      <$> sample (Conv2dSpec conv2dwithSPinputC conv2dwithSPoutputC conv2dwithSPkernelHeight conv2dwithSPkernelWidth)
-
-conv2dWSPForward :: Conv2dwithSP -> Tensor -> Tensor
-conv2dWSPForward Conv2dwithSP {..} input = conv2dForward conv2d_with_sp_c1 (conv2dwithSPstride, conv2dwithSPstride) (conv2dwithSPpadding, conv2dwithSPpadding) input
--}
-
-
 -- Bottleneck
 data BottleneckBB = BottleneckBB 
   {
