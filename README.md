@@ -1,1 +1,1 @@
-# HaskellFaceDetection 
+# HaskellResNet
