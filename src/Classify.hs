@@ -11,7 +11,6 @@ import Codec.Picture
 import Codec.Picture.Types
 import ResNetFused
 
-
 getImageFrom :: Either String Tensor -> Tensor
 getImageFrom (Left _) = error "Invalid image path"
 getImageFrom (Right img) = img
@@ -53,7 +52,7 @@ genMean (d1, d2) (r, g, b) = F.view [1, 3, d1, d2] (F.cat (F.Dim 0) [mr, mg, mb]
     mb = castScalarDTwo (d1, d2) b
 
 normalizeImage :: Tensor -> Tensor -> Tensor -> Tensor
-normalizeImage img mean std = F.div (F.sub (F.divScalar (255.0 :: Float) img) mean) std
+normalizeImage img mean std = F.div (F.sub (F.divScalar (256.0 :: Float) img) mean) std
 
 resizeAndnorm :: Image PixelRGB8 -> Tensor
 resizeAndnorm img = normalizeImage (fromRGB8ToTensor img_resized) mean std
@@ -61,6 +60,9 @@ resizeAndnorm img = normalizeImage (fromRGB8ToTensor img_resized) mean std
     mean = genMean (224, 224) (0.485, 0.456, 0.406)
     std = genMean (224, 224) (0.229, 0.224, 0.225)
     img_resized = centerCrop 224 224 (resizeRGB8 256 256 True img)
+
+transform :: Image PixelRGB8 -> Tensor
+transform img = resizeAndnorm img
 
 maxConf :: ResNet -> Image PixelRGB8 -> (Tensor, Tensor)
 maxConf resnet img = (maxConf', maxConfIndex)
