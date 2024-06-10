@@ -40,9 +40,7 @@ library
   build-depends:
       JuicyPixels
     , base >=4.7 && <5
-    , bytestring
     , hasktorch
-    , vector
   default-language: Haskell2010
 
 executable face-exe
@@ -57,10 +55,8 @@ executable face-exe
   build-depends:
       JuicyPixels
     , base >=4.7 && <5
-    , bytestring
     , face
     , hasktorch
-    , vector
   default-language: Haskell2010
 
 test-suite face-test
@@ -76,8 +72,6 @@ test-suite face-test
   build-depends:
       JuicyPixels
     , base >=4.7 && <5
-    , bytestring
     , face
     , hasktorch
-    , vector
   default-language: Haskell2010

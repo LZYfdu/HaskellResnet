@@ -25,6 +25,7 @@ main = do
       model <- loadResNet50 =<< model_path
       Right img <- readImage =<< image_path
       let img' = convertRGB8 img
+      
       let (probs, classes) = maxConf model img'
       let idx = asValue classes :: Int
       contents <- readFile "classes.txt"
@@ -32,3 +33,4 @@ main = do
       let classifiedClass = linesList !! idx
       putStrLn $ "Predicted class: " ++ classifiedClass
       putStrLn $ "Probability: " ++ show ( probs)
+      

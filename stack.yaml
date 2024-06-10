@@ -40,6 +40,9 @@ packages:
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
+ghc-options:
+  Main : -prof -fprof-auto
+  
 extra-deps:
   - git : https://github.com/hasktorch/hasktorch.git
     commit: 16b7e3efdd7101f26987f5b88bbe3b150e5a08c8
